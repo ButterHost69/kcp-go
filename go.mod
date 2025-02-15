@@ -1,4 +1,4 @@
-module github.com/xtaci/kcp-go/v5
+module github.com/ButterHost69/kcp-go/v5
 
 require (
 	github.com/klauspost/reedsolomon v1.12.0
