@@ -1174,6 +1174,7 @@ func Dial(raddr, laddr string) (net.Conn, error) { return DialWithOptions(raddr,
 //
 // Check https://github.com/klauspost/reedsolomon for details
 
+// By me
 func DialWithConnAndOptions(raddr string, block BlockCrypt, dataShards, parityShards int, conn *net.UDPConn) (*UDPSession, error) {
 	// network type detection
 	udp_raddr, err := net.ResolveUDPAddr("udp", raddr)
