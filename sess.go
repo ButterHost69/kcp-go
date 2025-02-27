@@ -1173,6 +1173,20 @@ func Dial(raddr, laddr string) (net.Conn, error) { return DialWithOptions(raddr,
 // 'dataShards', 'parityShards' specify how many parity packets will be generated following the data packets.
 //
 // Check https://github.com/klauspost/reedsolomon for details
+
+func DialWithConnAndOptions(raddr string, block BlockCrypt, dataShards, parityShards int, conn *net.UDPConn) (*UDPSession, error) {
+	// network type detection
+	udp_raddr, err := net.ResolveUDPAddr("udp", raddr)
+	if err != nil {
+		return nil, errors.WithStack(err)
+	}
+
+	var convid uint32
+	binary.Read(rand.Reader, binary.LittleEndian, &convid)
+	return newUDPSession(convid, dataShards, parityShards, nil, conn, true, udp_raddr, block), nil
+}
+
+
 func DialWithOptions(raddr, laddr string, block BlockCrypt, dataShards, parityShards int) (*UDPSession, error) {
 	// network type detection
 	udp_raddr, err := net.ResolveUDPAddr("udp", raddr)
