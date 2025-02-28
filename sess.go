@@ -1184,7 +1184,7 @@ func DialWithConnAndOptions(raddr string, block BlockCrypt, dataShards, paritySh
 
 	var convid uint32
 	binary.Read(rand.Reader, binary.LittleEndian, &convid)
-	return newUDPSession(convid, dataShards, parityShards, nil, conn, true, udp_raddr, block), nil
+	return newUDPSession(convid, dataShards, parityShards, nil, conn, false, udp_raddr, block), nil
 }
 
 
