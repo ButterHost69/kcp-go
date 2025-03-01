@@ -1122,6 +1122,7 @@ func (l *Listener) Addr() net.Addr { return l.conn.LocalAddr() }
 // Listen listens for incoming KCP packets addressed to the local address laddr on the network "udp",
 func Listen(laddr string) (net.Listener, error) { return ListenWithOptions(laddr, nil, 0, 0) }
 
+// Added this method
 func ListenWithOptionsAndConn(conn *net.UDPConn, block BlockCrypt, dataShards, parityShards int) (*Listener, error) {
 	return serveConn(block, dataShards, parityShards, conn, true)
 }
