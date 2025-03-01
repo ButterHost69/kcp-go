@@ -1122,6 +1122,10 @@ func (l *Listener) Addr() net.Addr { return l.conn.LocalAddr() }
 // Listen listens for incoming KCP packets addressed to the local address laddr on the network "udp",
 func Listen(laddr string) (net.Listener, error) { return ListenWithOptions(laddr, nil, 0, 0) }
 
+func ListenWithOptionsAndConn(conn *net.UDPConn, block BlockCrypt, dataShards, parityShards int) (*Listener, error) {
+	return serveConn(block, dataShards, parityShards, conn, true)
+}
+
 // ListenWithOptions listens for incoming KCP packets addressed to the local address laddr on the network "udp" with packet encryption.
 //
 // 'block' is the block encryption algorithm to encrypt packets.
@@ -1184,10 +1188,9 @@ func DialWithConnAndOptions(raddr string, block BlockCrypt, dataShards, paritySh
 
 	var convid uint32
 	binary.Read(rand.Reader, binary.LittleEndian, &convid)
-	// Change to False
+	// Change to False	q
 	return newUDPSession(convid, dataShards, parityShards, nil, conn, false, udp_raddr, block), nil
 }
-
 
 func DialWithOptions(raddr, laddr string, block BlockCrypt, dataShards, parityShards int) (*UDPSession, error) {
 	// network type detection
